@@ -64,5 +64,4 @@ func _process(delta):
 			lastDirection = Direction.UP
 			animation = AnimationUp
 
-	print(animation)
 	sprite_node.play(animation)

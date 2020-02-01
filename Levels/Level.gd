@@ -4,12 +4,37 @@ export (String, FILE, "*.tscn") var Next_Scene: String
 
 export (PackedScene) var Bomb
 export (PackedScene) var Bullet
+export (PackedScene) var DestroyedCabel
+
+# Locations of all broken wires of the level
+# in tile map coordinates
+export var broken_wire_locations = [
+	Vector2(16, 5),
+	Vector2(8, 14),
+	Vector2(20, 7),
+]
+
+# Max time in second before the next mission starts
+export var time_between_missions = [
+	2,
+	2,
+	2,
+]
+
+var current_mission_index = -1
+
+var missions_accomplished = [
+	false, false, false
+]
+
+var current_destroyed_cabel
+
+var level_is_over = false
 
 func _ready():
 	$SpawnBombTimer.start(randi() % 5)
 	$SpawnBulletTimer.start()
-	
-	
+	next_mission()
 
 func _on_SpawnBombTimer_timeout():
 	var bomb = Bomb.instance()
@@ -21,16 +46,70 @@ func _on_SpawnBombTimer_timeout():
 
 
 func _on_SpawnBulletTimer_timeout():
+	return  # DEBUG
 	$BulletPath/BulletPathFollower.offset = $Player.position.x + 100 - (randi() % 200)
 	
 	var bullet = Bullet.instance()
 	add_child(bullet)
 	
 	bullet.position = $BulletPath/BulletPathFollower.position
-	
 
 
 func _on_Player_repair_cabel():
-	if( $DestroyedCabel.is_coll):
-		$DestroyedCabel.queue_free()
+	if current_destroyed_cabel != null and current_destroyed_cabel.is_coll:
+		current_destroyed_cabel.queue_free()
+		missions_accomplished[current_mission_index] = true
+		next_mission()
+
+
+func _on_SpawnNextMissionTimer_timeout():
+	$SpawnNextMissionTimer.stop()
+	next_mission(true)
+
+
+func next_mission(lose_if_no_next = false):
+	if level_is_over:
+		return
+	
+	current_mission_index += 1
+	
+	if current_mission_index >= len(time_between_missions):
+		if lose_if_no_next:
+			lose_level()
+			return
 		
+		for mission_accomplished in missions_accomplished:
+			if not mission_accomplished:
+				return
+		
+		win_level()
+		return
+
+	start_next_mission_timer()
+	spawn_next_mission()
+
+
+func start_next_mission_timer():
+	$SpawnNextMissionTimer.start(time_between_missions[current_mission_index])
+
+func spawn_next_mission():
+	var tile_position = broken_wire_locations[current_mission_index]
+	
+	var world_position = $TileMapInside.map_to_world(tile_position)
+	
+	current_destroyed_cabel = DestroyedCabel.instance()
+	add_child(current_destroyed_cabel)
+	
+	current_destroyed_cabel.position = world_position
+
+
+func win_level():
+	level_is_over = true
+	print("koito igrai picheli")
+	# TODO
+
+
+func lose_level():
+	level_is_over = true
+	print("Otidi konq u rqkata")
+	# TODO

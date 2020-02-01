@@ -11,19 +11,19 @@
 [ext_resource path="res://Assets/Images/bomb/3.png" type="Texture" id=9]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 29.7145
+radius = 21.1229
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 4 ), ExtResource( 6 ) ],
-"loop": false,
-"name": "fall",
-"speed": 3.0
-}, {
 "frames": [ ExtResource( 3 ), ExtResource( 7 ), ExtResource( 5 ) ],
 "loop": false,
 "name": "boom",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 4 ), ExtResource( 6 ) ],
+"loop": false,
+"name": "fall",
+"speed": 3.0
 } ]
 
 [node name="Bomb" type="Area2D"]
