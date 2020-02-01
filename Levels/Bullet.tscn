@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="SegmentShape2D" id=3]
+a = Vector2( 8.47848, -0.178146 )
+b = Vector2( -8.4833, -0.0884018 )
+
+[sub_resource type="CurveTexture" id=2]
+
+[node name="Bullet" type="KinematicBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.208557, 0.0500793 )
+shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -0.0704117, -0.113521 )
+scale = Vector2( 0.00829687, 2.24204 )
+texture = SubResource( 2 )
