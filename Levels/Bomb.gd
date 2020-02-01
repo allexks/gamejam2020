@@ -2,16 +2,20 @@ extends Area2D
 
 signal detonation_ended
 
+export var FallAnimation = "fall"
+export var BoomAnimation = "boom"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$BoomCollision.disabled = true
+	$AnimatedSprite.play(FallAnimation)
 
 
-func _on_FallTimer_timeout():
-	$BoomCollision.disabled = false
-	$EndOfDamageTimer.start()
-
-
-func _on_EndOfDamageTimer_timeout():
-	$BoomCollision.disabled = true
-	emit_signal("detonation_ended")
+func _on_AnimatedSprite_animation_finished():
+	if $AnimatedSprite.animation == FallAnimation:
+		$BoomCollision.disabled = false
+		$AnimatedSprite.play(BoomAnimation)
+	elif $AnimatedSprite.animation == BoomAnimation:
+		$BoomCollision.disabled = true
+		queue_free()
+	

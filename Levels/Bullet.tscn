@@ -1,24 +1,32 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Levels/Bullet.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Images/bullet/2.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Images/bullet/1.png" type="Texture" id=3]
 
-[sub_resource type="SegmentShape2D" id=3]
-a = Vector2( 8.47848, -0.178146 )
-b = Vector2( -8.4833, -0.0884018 )
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 0.23107
+height = 2.17106
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [node name="Bullet" type="KinematicBody2D"]
 script = ExtResource( 1 )
+Speed = 200.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.208557, 0.0500793 )
+scale = Vector2( 10.1395, 5.51632 )
 shape = SubResource( 3 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
-margin_left = -8.66135
-margin_top = -1.54185
-margin_right = 8.33865
-margin_bottom = 1.45815
-color = Color( 1, 0.2, 0.0431373, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 2 )
+frame = 1
+playing = true
+flip_v = true
