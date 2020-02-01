@@ -604,7 +604,6 @@ Next_Scene = "res://TitleScreen/MainMenu.tscn"
 Bomb = ExtResource( 2 )
 Bullet = ExtResource( 3 )
 DestroyedCabel = ExtResource( 4 )
-broken_wire_locations = [ Vector2( 0, 0 ), Vector2( 0, 2 ), Vector2( 0, 3 ) ]
 
 [node name="SpawnNextMissionTimer" type="Timer" parent="."]
 wait_time = 4096.0

@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Assets/Images/ui_mission/1.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Images/ui_mission/2.png" type="Texture" id=2]
+[ext_resource path="res://Levels/MissionSprite.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Fonts/PRESSSTART2P.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+} ]
+
+[sub_resource type="DynamicFont" id=2]
+size = 8
+outline_color = Color( 0.2, 0.223529, 0.278431, 1 )
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 8
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 8
+font_data = ExtResource( 4 )
+
+[node name="MissionSprite" type="AnimatedSprite"]
+position = Vector2( 57.6567, 11.8834 )
+frames = SubResource( 1 )
+frame = 1
+script = ExtResource( 3 )
+
+[node name="StartStructureName" type="Label" parent="."]
+margin_left = -18.0
+margin_top = -5.0
+margin_right = 8.0
+margin_bottom = 3.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.184314, 0.129412, 0.231373, 1 )
+text = "XXX"
+
+[node name="EndStructureName" type="Label" parent="."]
+margin_left = -2.0
+margin_top = 4.0
+margin_right = 25.0
+margin_bottom = 12.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0.184314, 0.129412, 0.231373, 1 )
+text = "XXX"
+
+[node name="SecondsLeft" type="Label" parent="."]
+margin_left = 26.5807
+margin_top = 0.235647
+margin_right = 66.5807
+margin_bottom = 14.2356
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.184314, 0.129412, 0.231373, 1 )
+text = "000"
+
+[node name="Timer" type="Timer" parent="."]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
