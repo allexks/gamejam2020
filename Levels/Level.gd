@@ -46,7 +46,6 @@ func _on_SpawnBombTimer_timeout():
 
 
 func _on_SpawnBulletTimer_timeout():
-	return  # DEBUG
 	$BulletPath/BulletPathFollower.offset = $Player.position.x + 100 - (randi() % 200)
 	
 	var bullet = Bullet.instance()

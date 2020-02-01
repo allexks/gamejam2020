@@ -1,6 +1,6 @@
 extends Area2D
 
-signal detonation_ended
+
 
 export var FallAnimation = "fall"
 export var BoomAnimation = "boom"
@@ -19,3 +19,10 @@ func _on_AnimatedSprite_animation_finished():
 		$BoomCollision.disabled = true
 		queue_free()
 	
+
+
+func _on_Bomb_body_entered(body):
+	if(body.get_name() == "Player"):
+		body.Hit()
+		body.Hit()
+		body.Hit()
