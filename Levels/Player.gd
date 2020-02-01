@@ -16,7 +16,7 @@ enum Direction { UP, DOWN, RIGHT, LEFT }
 var lastDirection
 
 func _process(delta):
-	
+
 	if Input.is_action_just_released("PutCable"):
 		print("pressed")
 		emit_signal("repair_cabel")
@@ -27,15 +27,15 @@ func _process(delta):
 
 	dir = dir.normalized()
 	move_and_slide(dir * DefaultSpeed)
-	
+
 	if(Hp <= 0):
 		queue_free()
-	
+
 	# Animations
 	var sprite_node = $AnimatedSprite
 	var animation = ""
 	var velocity = dir.length()
-	
+
 	if velocity == 0:
 		match lastDirection:
 			Direction.UP:
@@ -66,20 +66,7 @@ func _process(delta):
 			lastDirection = Direction.UP
 			animation = AnimationUp
 
-
 	sprite_node.play(animation)
 
 func Hit():
 	Hp -= 1
-
-
-
-
-
-
-
-
-
-
-
-
