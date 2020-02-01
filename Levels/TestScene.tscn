@@ -1,9 +1,9 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Levels/Bomb.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Area2D.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Image_trench/outside - 5.png" type="Texture" id=4]
 [ext_resource path="res://Levels/Bullet.tscn" type="PackedScene" id=5]
 [ext_resource path="res://icon.png" type="Texture" id=6]
 [ext_resource path="res://Image_trench/outside - 1 copy 2.png" type="Texture" id=7]
@@ -21,6 +21,10 @@
 [ext_resource path="res://Image_trench/Layer 1.png" type="Texture" id=19]
 [ext_resource path="res://Image_trench/outside - 9.png" type="Texture" id=20]
 [ext_resource path="res://DestroyedCabel.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Image_trench/outside - 7.png" type="Texture" id=22]
+[ext_resource path="res://Image_trench/outside - 6.png" type="Texture" id=23]
+[ext_resource path="res://Image_trench/outside - 9 copy.png" type="Texture" id=24]
+[ext_resource path="res://Image_trench/outside - 3.png" type="Texture" id=25]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -178,6 +182,56 @@ _data = {
 14/navigation_offset = Vector2( 0, 0 )
 14/shapes = [  ]
 14/z_index = 0
+15/name = "outside - 5.png 15"
+15/texture = ExtResource( 4 )
+15/tex_offset = Vector2( 0, 0 )
+15/modulate = Color( 1, 1, 1, 1 )
+15/region = Rect2( 0, 0, 32, 32 )
+15/tile_mode = 0
+15/occluder_offset = Vector2( 0, 0 )
+15/navigation_offset = Vector2( 0, 0 )
+15/shapes = [  ]
+15/z_index = 0
+16/name = "outside - 7.png 16"
+16/texture = ExtResource( 22 )
+16/tex_offset = Vector2( 0, 0 )
+16/modulate = Color( 1, 1, 1, 1 )
+16/region = Rect2( 0, 0, 32, 32 )
+16/tile_mode = 0
+16/occluder_offset = Vector2( 0, 0 )
+16/navigation_offset = Vector2( 0, 0 )
+16/shapes = [  ]
+16/z_index = 0
+17/name = "outside - 6.png 17"
+17/texture = ExtResource( 23 )
+17/tex_offset = Vector2( 0, 0 )
+17/modulate = Color( 1, 1, 1, 1 )
+17/region = Rect2( 0, 0, 32, 32 )
+17/tile_mode = 0
+17/occluder_offset = Vector2( 0, 0 )
+17/navigation_offset = Vector2( 0, 0 )
+17/shapes = [  ]
+17/z_index = 0
+18/name = "outside - 9 copy.png 18"
+18/texture = ExtResource( 24 )
+18/tex_offset = Vector2( 0, 0 )
+18/modulate = Color( 1, 1, 1, 1 )
+18/region = Rect2( 0, 0, 32, 32 )
+18/tile_mode = 0
+18/occluder_offset = Vector2( 0, 0 )
+18/navigation_offset = Vector2( 0, 0 )
+18/shapes = [  ]
+18/z_index = 0
+19/name = "outside - 3.png 19"
+19/texture = ExtResource( 25 )
+19/tex_offset = Vector2( 0, 0 )
+19/modulate = Color( 1, 1, 1, 1 )
+19/region = Rect2( 0, 0, 32, 32 )
+19/tile_mode = 0
+19/occluder_offset = Vector2( 0, 0 )
+19/navigation_offset = Vector2( 0, 0 )
+19/shapes = [  ]
+19/z_index = 0
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
@@ -191,17 +245,6 @@ wait_time = 0.5
 [node name="SpawnBombTimer" type="Timer" parent="."]
 wait_time = 5.0
 
-[node name="Area2D" parent="." instance=ExtResource( 4 )]
-
-[node name="Player" parent="Area2D" instance=ExtResource( 3 )]
-position = Vector2( 30.8202, 79.4917 )
-z_index = 2
-collision_layer = 1
-collision_mask = 1
-
-[node name="StaticBody2D" parent="Area2D" instance=ExtResource( 21 )]
-position = Vector2( 212.988, 87.2305 )
-
 [node name="BulletPath" type="Path2D" parent="."]
 curve = SubResource( 1 )
 
@@ -213,6 +256,13 @@ rotation = 0.00168394
 tile_set = SubResource( 2 )
 cell_size = Vector2( 32, 32 )
 format = 1
-tile_data = PoolIntArray( -65528, 3, 0, -65527, 6, 0, -65526, 13, 0, 10, 8, 0, 65545, 5, 0, 65546, 2, 0, 131072, 5, 0, 131073, 12, 0, 131074, 12, 0, 131075, 12, 0, 131076, 12, 0, 131077, 12, 0, 131078, 12, 0, 131079, 12, 0, 131080, 12, 0, 131081, 7, 0, 131082, 2, 0, 196608, 10, 0, 196609, 11, 0, 196610, 11, 0, 196611, 11, 0, 196612, 11, 0, 196613, 11, 0, 196614, 11, 0, 196615, 11, 0, 196616, 11, 0, 196617, 7, 0, 196618, 1, 0, 262153, 8, 0, 327689, 10, 0, 327690, 6, 0, 327691, 14, 0 )
+tile_data = PoolIntArray( 0, 5, 0, 1, 12, 0, 2, 12, 0, 3, 13, 0, 65536, 15, 0, 65537, 17, 0, 65538, 17, 0, 65539, 16, 0, 65540, 12, 0, 65541, 6, 0, 65542, 6, 0, 65543, 12, 0, 65544, 6, 0, 65545, 6, 0, 65546, 6, 0, 65547, 6, 0, 65548, 6, 0, 65549, 6, 0, 65550, 6, 0, 65551, 14, 0, 131072, 15, 0, 131073, 17, 0, 131074, 17, 0, 131075, 19, 0, 131076, 1, 0, 131079, 8, 0, 196608, 10, 0, 196609, 11, 0, 196610, 11, 0, 196611, 1, 0, 196615, 8, 0, 262151, 10, 0, 262152, 12, 0, 262153, 12, 0, 262154, 12, 0, 262155, 12, 0, 262156, 12, 0, 262157, 12, 0, 327688, 10, 0, 327689, 11, 0, 327691, 11, 0, 327692, 11, 0, 327693, 11, 0, 327694, 6, 0, 327695, 6, 0, 327696, 6, 0, 327697, 6, 0, 327698, 6, 0, 327699, 6, 0, 393226, 8, 0, 458754, 5, 0, 458755, 12, 0, 458756, 12, 0, 458757, 13, 0, 458762, 8, 0, 524290, 15, 0, 589826, 10, 0, 589827, 11, 0, 589828, 11, 0, 589829, 1, 0 )
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 8.13712, 31.5188 )
+
+[node name="DestroyedCabel" parent="." instance=ExtResource( 21 )]
+position = Vector2( 402.58, 135.285 )
 [connection signal="timeout" from="SpawnBulletTimer" to="." method="_on_SpawnBulletTimer_timeout"]
 [connection signal="timeout" from="SpawnBombTimer" to="." method="_on_SpawnBombTimer_timeout"]
+[connection signal="repair_cabel" from="Player" to="." method="_on_Player_repair_cabel"]

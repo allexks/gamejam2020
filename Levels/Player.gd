@@ -18,11 +18,14 @@ var lastDirection
 func _process(delta):
 	if Input.is_action_pressed("PutCable"):
 		emit_signal("repair_cabel")
-	
+
 	var dir = Vector2.ZERO
 	dir.x = Input.get_action_strength("Right") - Input.get_action_strength("Left")
 	dir.y = Input.get_action_strength("Down") - Input.get_action_strength("Up")
-	
+
+	if(Input.is_action_just_pressed("PutCable")):
+		emit_signal("repair_cabel")
+
 	dir = dir.normalized()
 	move_and_slide(dir * DefaultSpeed)
 
@@ -60,7 +63,6 @@ func _process(delta):
 		elif dir.y < 0:
 			lastDirection = Direction.UP
 			animation = AnimationUp
-	
+
 	print(animation)
 	sprite_node.play(animation)
-	
