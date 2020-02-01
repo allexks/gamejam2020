@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assets/Images/player_side/2.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Images/player_up/2.png" type="Texture" id=2]
@@ -14,9 +14,9 @@
 [ext_resource path="res://Assets/Images/player_down/1.png" type="Texture" id=12]
 [ext_resource path="res://Assets/Images/player_still/char_side.png" type="Texture" id=13]
 
-[sub_resource type="CapsuleShape2D" id=3]
-radius = 12.5933
-height = 1.4561
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 12.3738
+height = 0.535316
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -30,16 +30,6 @@ animations = [ {
 "name": "side",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "still_down",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 13 ) ],
-"loop": true,
-"name": "still_side",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 12 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "down",
@@ -49,13 +39,28 @@ animations = [ {
 "loop": true,
 "name": "still_up",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "still_side",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "still_down",
+"speed": 5.0
 } ]
 
+[sub_resource type="CircleShape2D" id=3]
+radius = 13.1728
+
 [node name="Player" type="KinematicBody2D"]
+collision_layer = 2
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 3 )
+position = Vector2( 0, 0.440125 )
+shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
@@ -69,3 +74,10 @@ drag_margin_left = 0.0
 drag_margin_top = 0.0
 drag_margin_right = 0.0
 drag_margin_bottom = 0.0
+
+[node name="Get_Hit" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Get_Hit"]
+position = Vector2( 0.0659714, 0.263882 )
+shape = SubResource( 3 )
+[connection signal="body_entered" from="Get_Hit" to="." method="_on_Get_Hit_body_entered"]

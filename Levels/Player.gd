@@ -3,7 +3,7 @@ extends KinematicBody2D
 signal repair_cabel
 
 export var DefaultSpeed = 120
-
+export var Hp = 3
 export var AnimationUp = "up"
 export var AnimationDown = "down"
 export var AnimationSide = "side"
@@ -16,19 +16,21 @@ enum Direction { UP, DOWN, RIGHT, LEFT }
 var lastDirection
 
 func _process(delta):
-	if Input.is_action_pressed("PutCable"):
+	
+	if Input.is_action_just_released("PutCable"):
+		print("pressed")
 		emit_signal("repair_cabel")
 
 	var dir = Vector2.ZERO
 	dir.x = Input.get_action_strength("Right") - Input.get_action_strength("Left")
 	dir.y = Input.get_action_strength("Down") - Input.get_action_strength("Up")
 
-	if(Input.is_action_just_pressed("PutCable")):
-		emit_signal("repair_cabel")
-
 	dir = dir.normalized()
 	move_and_slide(dir * DefaultSpeed)
-
+	
+	if(Hp <= 0):
+		queue_free()
+	
 	# Animations
 	var sprite_node = $AnimatedSprite
 	var animation = ""
@@ -64,5 +66,20 @@ func _process(delta):
 			lastDirection = Direction.UP
 			animation = AnimationUp
 
-	print(animation)
+
 	sprite_node.play(animation)
+
+func Hit():
+	Hp -= 1
+
+
+
+
+
+
+
+
+
+
+
+
