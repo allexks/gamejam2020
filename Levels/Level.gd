@@ -9,6 +9,7 @@ func _ready():
 	$SpawnBombTimer.start(randi() % 5)
 	$SpawnBulletTimer.start()
 	
+	
 
 func _on_SpawnBombTimer_timeout():
 	var bomb = Bomb.instance()
@@ -30,5 +31,6 @@ func _on_SpawnBulletTimer_timeout():
 
 
 func _on_Player_repair_cabel():
-	if($DestroyedCabel.is_coll == true):
+	if( $DestroyedCabel.is_coll):
 		$DestroyedCabel.queue_free()
+		
