@@ -1,24 +1,40 @@
 extends Node2D
 
 export (String, FILE, "*.tscn") var Next_Scene: String
-
+var index_one = 0
+var index_two = 0
+var index_three = 0
 export (PackedScene) var Bomb
 export (PackedScene) var Bullet
 export (PackedScene) var DestroyedCabel
-
-# Locations of all broken wires of the level
-# in tile map coordinates
-export var broken_wire_locations = [
+var possible_wire_locations = [
 	Vector2(16, 5),
 	Vector2(8, 14),
 	Vector2(20, 7),
+	Vector2(12, 12),
+	Vector2(5, 15),
+	Vector2(9, 8),
+	Vector2(26, 12),
+	Vector2(36, 2),
+	Vector2(34, 6),
+	Vector2(23, 8),
+	Vector2(19, 13),
+	Vector2(22, 4),
+	Vector2(19, 6),
+	Vector2(28, 8),
+	Vector2(10, 6),
 ]
+	
+# Locations of all broken wires of the level
+# in tile map coordinates
+var broken_wire_locations
 
 # Max time in second before the next mission starts
 export var time_between_missions = [
-	2,
-	2,
-	2,
+	10,
+	15,
+	20,
+	
 ]
 
 var current_mission_index = -1
@@ -34,10 +50,20 @@ var destroyed_cabel_instances = [
 var level_is_over = false
 
 func _ready():
+	index_one = randi() % len(possible_wire_locations)
+	index_two = randi() % len(possible_wire_locations)
+	index_three = randi() % len(possible_wire_locations)
+
+	broken_wire_locations = [
+		possible_wire_locations[index_one],
+		possible_wire_locations[index_two],
+		possible_wire_locations[index_three],
+	]
+	
 	$SpawnBombTimer.start(randi() % 5)
 	$SpawnBulletTimer.start()
 	next_mission()
-
+	
 func _on_SpawnBombTimer_timeout():
 	var bomb = Bomb.instance()
 	add_child(bomb)
