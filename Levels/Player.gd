@@ -9,3 +9,5 @@ func _process(delta):
 	
 	dir = dir.normalized()
 	move_and_slide(dir * speed)
+	
+	
