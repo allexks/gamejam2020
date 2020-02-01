@@ -8,11 +8,8 @@ export (PackedScene) var Cabel
 
 # Called when the node enters the scene tree for the first time.
 func _process(delta):
-	if(Input.is_action_just_pressed("PutCable")):
-		var cabel = Cabel.instance()
-		
-		add_child(cabel)
-		cabel.position = $Player.position
+	if(Input.is_action_just_pressed("PutCable") and $StaticBody2D.is_coll):
+		$StaticBody2D.queue_free()
 	pass # Replace with function body.
 
 

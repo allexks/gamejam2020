@@ -26,4 +26,4 @@ func _on_SpawnBulletTimer_timeout():
 	add_child(bullet)
 	
 	bullet.position = $BulletPath/BulletPathFollower.position
-	print(bullet.position)
+	
