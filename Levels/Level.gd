@@ -27,7 +27,9 @@ var missions_accomplished = [
 	false, false, false
 ]
 
-var current_destroyed_cabel
+var destroyed_cabel_instances = [
+	null, null, null
+]
 
 var level_is_over = false
 
@@ -55,10 +57,15 @@ func _on_SpawnBulletTimer_timeout():
 
 
 func _on_Player_repair_cabel():
-	if current_destroyed_cabel != null and current_destroyed_cabel.is_coll:
-		current_destroyed_cabel.queue_free()
-		missions_accomplished[current_mission_index] = true
-		next_mission()
+	var i = 0
+	for cable in destroyed_cabel_instances:
+		if cable != null and cable.is_coll:
+			cable.queue_free()
+			missions_accomplished[i] = true
+			destroyed_cabel_instances[i] = null
+			next_mission()
+			return
+		i += 1
 
 
 func _on_SpawnNextMissionTimer_timeout():
@@ -96,10 +103,11 @@ func spawn_next_mission():
 	
 	var world_position = $TileMapInside.map_to_world(tile_position)
 	
-	current_destroyed_cabel = DestroyedCabel.instance()
-	add_child(current_destroyed_cabel)
+	var new_cabel = DestroyedCabel.instance()
+	destroyed_cabel_instances[current_mission_index] = new_cabel
+	add_child(new_cabel)
 	
-	current_destroyed_cabel.position = world_position
+	new_cabel.position = world_position
 
 
 func win_level():
