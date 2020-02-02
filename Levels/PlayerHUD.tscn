@@ -1,10 +1,42 @@
-[gd_scene format=2]
+[gd_scene load_steps=8 format=2]
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[ext_resource path="res://Levels/PlayerHUD.gd" type="Script" id=1]
+[ext_resource path="res://Levels/MissionSprite.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Images/ui_lives/lives1.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Images/ui_lives/lives2.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Images/ui_lives/lives3.png" type="Texture" id=5]
 
-[node name="Time Label" type="Label" parent="."]
-margin_right = 40.0
-margin_bottom = 14.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[sub_resource type="ImageTexture" id=1]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": false,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="PlayerHUD" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 100.0
+margin_bottom = 40.0
+texture = SubResource( 1 )
+
+[node name="Mission1Sprite" parent="." instance=ExtResource( 2 )]
+position = Vector2( 53.55, 11.8834 )
+
+[node name="Mission2Sprite" parent="." instance=ExtResource( 2 )]
+position = Vector2( 159.735, 11.7776 )
+
+[node name="Mission3Sprite" parent="." instance=ExtResource( 2 )]
+position = Vector2( 266.017, 11.7474 )
+
+[node name="LivesSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 268.487, 166.437 )
+frames = SubResource( 2 )
+frame = 2
+[connection signal="mission_timeout" from="Mission1Sprite" to="." method="_on_Mission_Sprite_mission_timeout"]
+[connection signal="mission_timeout" from="Mission2Sprite" to="." method="_on_Mission_Sprite_mission_timeout"]
+[connection signal="mission_timeout" from="Mission3Sprite" to="." method="_on_Mission_Sprite_mission_timeout"]

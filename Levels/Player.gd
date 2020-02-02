@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 signal repair_cabel
+signal baftata
 
 export var DefaultSpeed = 120
 export var Hp = 3
@@ -78,3 +79,7 @@ func _process(delta):
 func Hit():
 
 	Hp -= 1
+
+
+func _on_PlayerHUD_mission_timeout(id):
+	emit_signal("baftata", id)

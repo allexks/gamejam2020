@@ -4,6 +4,9 @@
 [ext_resource path="res://NewButtons/background_nostripe (1).png" type="Texture" id=2]
 [ext_resource path="res://GUI/Buttons/DefaultButton.tscn" type="PackedScene" id=3]
 
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0941176, 0.0784314, 0.145098, 1 )
+
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource( 1 )
 First_Level = "res://Levels/TestScene.tscn"
