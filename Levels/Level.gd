@@ -46,37 +46,37 @@ var broken_wire_locations
 export var mission_durations = [
 	30,
 	30,
-	30,
-	30,
-	30,
-	30,
-	30,
-	30,
-	30,
-	30
+	#30,
+	#30,
+	#30,
+	#30,
+	#30,
+	#30,
+	#30,
+	#30
 ]
 
 export var time_before_missions = [
 	3,
 	25,
-	25,
-	25,
-	25,
-	25,
-	25,
-	25,
-	20,
-	20
+	#25,
+	#25,
+	#25,
+	#25,
+	#25,
+	#25,
+	#20,
+	#20
 ]
 
 var current_mission_index = -1
 
 var missions_accomplished = [
-	false, false, false, false, false, false, false, false, false, false
+	false, false#, false, false, false, false, false, false, false, false
 ]
 
 var destroyed_cabel_instances = [
-	null, null, null, null, null, null, null, null, null, null
+	null, null#, null, null, null, null, null, null, null, null
 ]
 
 var ongiong_mission_indices = []
@@ -152,8 +152,10 @@ func _on_Player_repair_cabel():
 			missions_accomplished[i] = true
 			destroyed_cabel_instances[i] = null
 			if i in ongiong_mission_indices:
-				ongiong_mission_indices.remove(i)
+				ongiong_mission_indices.erase(i)
 				$Player/PlayerHUD.remove_mission(i)
+				if len(ongiong_mission_indices) == 0 and current_mission_index == len(time_before_missions):
+					win_level()
 			return
 		i += 1
 
@@ -166,6 +168,10 @@ func _on_SpawnNextMissionTimer_timeout():
 func next_mission():
 	if level_is_over:
 		return
+		
+	if len(ongiong_mission_indices) == 0 and current_mission_index == len(time_before_missions):
+		win_level()
+		return
 
 	spawn_next_mission()
 
@@ -175,7 +181,8 @@ func next_mission():
 
 
 func start_next_mission_timer():
-	$SpawnNextMissionTimer.start(time_before_missions[current_mission_index])
+	if current_mission_index < len(time_before_missions):
+		$SpawnNextMissionTimer.start(time_before_missions[current_mission_index])
 
 func spawn_next_mission():
 	if current_mission_index < 0:
@@ -222,7 +229,7 @@ func _on_Player_baftata(id):
 	print(id)
 	lives -= 1
 	$Player/PlayerHUD.lives -= 1
-	ongiong_mission_indices.remove(id)
+	ongiong_mission_indices.erase(id)
 	if lives == 0:
 		lose_level()
 

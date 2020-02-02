@@ -989,7 +989,7 @@ tile_data = PoolIntArray( 65572, 5, 0, 131094, 9, 0, 131108, 9, 0, 196630, 9, 0,
 wait_time = 4096.0
 
 [node name="SpawnBulletTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.75
 
 [node name="SpawnBombTimer" type="Timer" parent="."]
 wait_time = 5.0
