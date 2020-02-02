@@ -8,7 +8,7 @@
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource( 1 )
-First_Level = "res://Levels/TestScene.tscn"
+First_Level = "res://Levels/LevelMap.tscn"
 
 [node name="BG" type="Panel" parent="."]
 pause_mode = 2

@@ -135,13 +135,14 @@ func _on_SpawnBombTimer_timeout():
 
 
 func _on_SpawnBulletTimer_timeout():
-	$BulletPath/BulletPathFollower.offset = $Player.position.x + 100 - (randi() % 200)
+
+	var spawn_x = $Player.position.x + 50 - (randi() % 100)
 
 	var bullet = Bullet.instance()
 	add_child(bullet)
 
-	bullet.position.x = $BulletPath/BulletPathFollower.position.x
-	bullet.position.y = $BulletPath/BulletPathFollower.position.y + 600
+	bullet.position.x = spawn_x
+	bullet.position.y = $Player.position.y + 600
 
 func _on_Player_repair_cabel():
 	var i = 0
