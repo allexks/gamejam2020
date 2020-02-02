@@ -45,6 +45,11 @@ animations = [ {
 "name": "work",
 "speed": 6.0
 }, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "still_up",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "still_down",
@@ -53,11 +58,6 @@ animations = [ {
 "frames": [ ExtResource( 13 ) ],
 "loop": true,
 "name": "still_side",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "still_up",
 "speed": 5.0
 } ]
 

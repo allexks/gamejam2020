@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://TitleScreen/MainMenu.gd" type="Script" id=1]
-[ext_resource path="res://NewButtons/background_nostripe (1).png" type="Texture" id=2]
-[ext_resource path="res://GUI/Buttons/DefaultButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://NewButtons/background_stripe.png" type="Texture" id=2]
+[ext_resource path="res://NewButtons/EXIT.png" type="Texture" id=4]
+[ext_resource path="res://NewButtons/OPTIONS.png" type="Texture" id=5]
+[ext_resource path="res://NewButtons/PLAY copy.png" type="Texture" id=6]
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -41,38 +43,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Exit" parent="." instance=ExtResource( 3 )]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -128.0
-margin_top = -14.0
-margin_right = 0.0
-margin_bottom = 0.0
-text = "Exit"
+[node name="Play" type="TextureButton" parent="."]
+margin_left = 60.2164
+margin_top = 159.0
+margin_right = 95.2164
+margin_bottom = 167.0
+texture_normal = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Options" parent="." instance=ExtResource( 3 )]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -64.0
-margin_top = -14.0
-margin_right = 56.0
-margin_bottom = 0.0
-text = "Options"
+[node name="Options" type="TextureButton" parent="."]
+margin_left = 129.0
+margin_top = 159.0
+margin_right = 184.0
+margin_bottom = 168.0
+texture_normal = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="NewGame" parent="." groups=[
-"FocusGroup",
-"MainMenu",
-] instance=ExtResource( 3 )]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_top = -14.0
-margin_right = 96.0
-margin_bottom = 0.0
-text = "New Game"
-[connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
+[node name="Exit" type="TextureButton" parent="."]
+margin_left = 230.0
+margin_top = 159.0
+margin_right = 264.0
+margin_bottom = 168.0
+texture_normal = ExtResource( 4 )
+[connection signal="pressed" from="Play" to="." method="_on_NewGame_pressed"]
 [connection signal="pressed" from="Options" to="." method="_on_Options_pressed"]
-[connection signal="pressed" from="NewGame" to="." method="_on_NewGame_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
