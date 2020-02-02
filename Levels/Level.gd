@@ -77,17 +77,15 @@ func _ready():
 	next_mission()
 	
 func _on_SpawnBombTimer_timeout():
-	return
 	var bomb = Bomb.instance()
 	add_child(bomb)
 	
-	bomb.position.x = $Player.position.x + 40 - (randi() % 80)
-	bomb.position.y = $Player.position.y + 40 - (randi() % 80)
+	bomb.position.x = $Player.position.x + 30 - (randi() % 60)
+	bomb.position.y = $Player.position.y + 30 - (randi() % 60)
 	$SpawnBombTimer.start(randi() % 5)
 
 
 func _on_SpawnBulletTimer_timeout():
-	return
 	$BulletPath/BulletPathFollower.offset = $Player.position.x + 100 - (randi() % 200)
 	
 	var bullet = Bullet.instance()

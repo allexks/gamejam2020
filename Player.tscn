@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Levels/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Images/player_up/1.png" type="Texture" id=2]
@@ -10,10 +10,14 @@
 [ext_resource path="res://Assets/Images/player_down/1.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Images/player_down/2.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Images/player_down/3.png" type="Texture" id=10]
-[ext_resource path="res://Assets/Images/player_still/char_side.png" type="Texture" id=11]
-[ext_resource path="res://Assets/Images/player_still/char_S.png" type="Texture" id=12]
-[ext_resource path="res://Assets/Images/player_still/char_N.png" type="Texture" id=13]
-[ext_resource path="res://Levels/PlayerHUD.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Assets/Images/player_down/2.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Images/player_down/1.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Images/player_still/char_side.png" type="Texture" id=13]
+[ext_resource path="res://workspr/4.png" type="Texture" id=14]
+[ext_resource path="res://workspr/2.png" type="Texture" id=15]
+[ext_resource path="res://workspr/3.png" type="Texture" id=16]
+[ext_resource path="res://workspr/1.png" type="Texture" id=17]
+[ext_resource path="res://Levels/PlayerHUD.tscn" type="PackedScene" id=18]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 12.3738
@@ -31,9 +35,9 @@ animations = [ {
 "name": "side",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 9 ) ],
+"frames": [ ExtResource( 7 ) ],
 "loop": true,
-"name": "down",
+"name": "still_down",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 11 ) ],
@@ -49,7 +53,17 @@ animations = [ {
 "frames": [ ExtResource( 13 ) ],
 "loop": true,
 "name": "still_up",
+"speed": "5.0"
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "down",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "work",
+"speed": 6.0
 } ]
 
 [sub_resource type="CircleShape2D" id=3]
@@ -65,7 +79,7 @@ shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-animation = "down"
+animation = "work"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -80,6 +94,6 @@ drag_margin_bottom = 0.0
 position = Vector2( 0.0659714, 0.263882 )
 shape = SubResource( 3 )
 
-[node name="PlayerHUD" parent="." instance=ExtResource( 14 )]
+[node name="PlayerHUD" parent="." instance=ExtResource( 18 )]
 [connection signal="body_entered" from="Get_Hit" to="." method="_on_Get_Hit_body_entered"]
 [connection signal="mission_timeout" from="PlayerHUD" to="." method="_on_PlayerHUD_mission_timeout"]
