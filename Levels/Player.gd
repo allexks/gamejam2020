@@ -17,6 +17,10 @@ enum Direction { UP, DOWN, RIGHT, LEFT }
 
 var lastDirection
 
+func _ready():
+	$BloodUp.hide()
+	$BloodDown.hide()
+
 func _process(delta):
 
 	if Input.is_action_pressed("PutCable"):
@@ -76,10 +80,27 @@ func _process(delta):
 
 	sprite_node.play(animation)
 	
-func Hit():
+func Hit(up):
 
 	Hp -= 1
+	
+	if up:
+		$BloodUp.show()
+		$BloodUp.play("default")
+	else:
+		$BloodDown.show()
+		$BloodDown.play("default")
 
 
 func _on_PlayerHUD_mission_timeout(id):
 	emit_signal("baftata", id)
+
+
+func _on_BloodUp_animation_finished():
+	$BloodUp.hide()
+	$BloodUp.stop()
+
+
+func _on_BloodDown_animation_finished():
+	$BloodDown.hide()
+	$BloodDown.stop()
