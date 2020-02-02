@@ -10,17 +10,21 @@ export var AnimationSide = "side"
 export var AnimationStillUpward = "still_up"
 export var AnimationStillDownward = "still_down"
 export var AnimationStillSideward = "still_side"
-
+export var AnimationWork = "work"
+var animation = ""
 enum Direction { UP, DOWN, RIGHT, LEFT }
 
 var lastDirection
 
 func _process(delta):
 
-	if Input.is_action_just_released("PutCable"):
+	if Input.is_action_pressed("PutCable"):
 		print("pressed")
+		animation = AnimationWork
 		emit_signal("repair_cabel")
-
+	else:
+		animation = ""
+		
 	var dir = Vector2.ZERO
 	dir.x = Input.get_action_strength("Right") - Input.get_action_strength("Left")
 	dir.y = Input.get_action_strength("Down") - Input.get_action_strength("Up")
@@ -33,10 +37,13 @@ func _process(delta):
 
 	# Animations
 	var sprite_node = $AnimatedSprite
-	var animation = ""
+	
 	var velocity = dir.length()
 
-	if velocity == 0:
+	if animation == AnimationWork:
+		
+		pass
+	elif velocity == 0:
 		match lastDirection:
 			Direction.UP:
 				animation = AnimationStillUpward
@@ -67,6 +74,7 @@ func _process(delta):
 			animation = AnimationUp
 
 	sprite_node.play(animation)
-
+	
 func Hit():
+
 	Hp -= 1

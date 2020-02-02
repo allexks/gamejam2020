@@ -14,6 +14,8 @@ func _process(delta):
 
 func _on_Area2D_body_entered(body):
 	if(body.get_name() == "Player"):
-		print("destroyed")
-		queue_free()
-		body.Hit()
+		if(body.animation == body.AnimationStillUpward or body.animation == body.AnimationStillDownward or body.animation == body.AnimationStillSideward):
+			return
+		else:
+			queue_free()
+			body.Hit()

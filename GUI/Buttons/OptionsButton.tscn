@@ -10,6 +10,9 @@ size_flags_vertical = 4
 texture_normal = ExtResource( 1 )
 texture_pressed = ExtResource( 2 )
 texture_focused = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5

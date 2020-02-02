@@ -68,8 +68,8 @@ func _on_SpawnBombTimer_timeout():
 	var bomb = Bomb.instance()
 	add_child(bomb)
 	
-	bomb.position.x = $Player.position.x + 40 - (randi() % 80)
-	bomb.position.y = $Player.position.y + 40 - (randi() % 80)
+	bomb.position.x = $Player.position.x + 30 - (randi() % 60)
+	bomb.position.y = $Player.position.y + 30 - (randi() % 60)
 	$SpawnBombTimer.start(randi() % 5)
 
 

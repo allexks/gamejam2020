@@ -18,3 +18,6 @@ custom_styles/disabled = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
 custom_fonts/font = ExtResource( 5 )
 text = "Button"
+__meta__ = {
+"_edit_use_anchors_": false
+}
