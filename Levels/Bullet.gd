@@ -16,6 +16,6 @@ func _on_Area2D_body_entered(body):
 		if(body.animation == body.AnimationStillUpward or body.animation == body.AnimationStillDownward or body.animation == body.AnimationStillSideward):
 			return
 		else:
-			var from_up = direction.y >= 0
 			queue_free()
-			body.Hit(from_up)
+			body.Hit()
+			Event.emit_signal("Bullet")

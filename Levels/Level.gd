@@ -119,6 +119,7 @@ func _ready():
 		Ammo
 	]
 	
+	Event.emit_signal("EnterLevel")
 	$SpawnBombTimer.start(randi() % 5)
 	$SpawnBulletTimer.start()
 	next_mission()
@@ -202,6 +203,7 @@ func spawn_next_mission():
 	ongiong_mission_indices.append(current_mission_index)
 
 func win_level():
+	Event.emit_signal("EndLevel")
 	level_is_over = true
 	print("koito igrai picheli")
 	# TODO
@@ -209,6 +211,7 @@ func win_level():
 
 func lose_level():
 	level_is_over = true
+	Event.emit_signal("EndLevel")
 	print("Otidi konq u rqkata")
 	Event.emit_signal("ChangeScene", Next_Scene)
 
@@ -221,3 +224,11 @@ func _on_Player_baftata(id):
 	if lives == 0:
 		lose_level()
 	
+
+
+func _on_MGTileAnimator_timeout():
+	var x = 1
+	var y = 4
+	var texture = $TileMapStructures.get_cell(x, y)
+	var new_texture = 10 if texture == 9 else 9
+	$TileMapStructures.set_cell(x, y, new_texture)

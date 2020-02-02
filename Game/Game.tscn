@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Game/Game.gd" type="Script" id=1]
 [ext_resource path="res://TitleScreen/MainMenu.tscn" type="PackedScene" id=2]
@@ -7,6 +7,11 @@
 [ext_resource path="res://GUI/OptionsMenu/OptionsMenu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://GUI/FadeLayer/Fade_layer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://GUI/HTML5Focus/HTMLfocus.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Sounds/Background Loop.wav" type="AudioStream" id=8]
+[ext_resource path="res://Assets/Sounds/Menu Click Sound.wav" type="AudioStream" id=9]
+[ext_resource path="res://Assets/Sounds/without whistle.wav" type="AudioStream" id=10]
+[ext_resource path="res://Assets/Sounds/The Tread of War .wav" type="AudioStream" id=11]
+[ext_resource path="res://Assets/Sounds/bullet.wav" type="AudioStream" id=12]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -31,14 +36,29 @@ layer = 128
 
 [node name="FadeTween" type="Tween" parent="FadeLayer"]
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
+stream = ExtResource( 8 )
 bus = "Music"
 
-[node name="Sounds" type="AudioStreamPlayer" parent="."]
+[node name="MenuClickSound" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
+stream = ExtResource( 9 )
 bus = "SFX"
 
 [node name="HTMLfocus" parent="." instance=ExtResource( 7 )]
 layer = 128
+
+[node name="BoomSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 10 )
+bus = "SFX"
+
+[node name="MenuBackgroundSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 11 )
+autoplay = true
+bus = "Music"
+
+[node name="BulletSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 12 )
+bus = "SFX"
 [connection signal="tween_completed" from="FadeLayer/FadeTween" to="." method="_on_FadeTween_tween_completed"]

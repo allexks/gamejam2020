@@ -15,6 +15,12 @@ func _ready()->void:
 	Event.connect("Exit",		self, "on_Exit")
 	Event.connect("ChangeScene",self, "on_ChangeScene")
 	Event.connect("Restart", 	self, "restart_scene")
+	Event.connect("EnterLevel", 	self, "on_new_level")
+	Event.connect("EndLevel", 	self, "on_end_level")
+	Event.connect("ButtonPressed",	self, "on_button_press")
+	Event.connect("Boom", 	self, "on_boom")
+	Event.connect("MainMenu", self, "on_main_menu")
+	Event.connect("Bullet", self, "on_bullet")
 	#Background loader
 	SceneLoader.connect("scene_loaded", self, "on_scene_loaded")
 	#SceneLoader.load_scene("res://Levels/TestScene.tscn", {instructions="for what reason it got loaded"})
@@ -81,3 +87,22 @@ func _on_FadeTween_tween_completed(object, key)->void:
 		FADEIN:
 			FadeState = IDLE
 	
+
+func on_new_level():
+	$BackgroundMusic.play()
+	$MenuBackgroundSound.stop()
+
+func on_end_level():
+	$BackgroundMusic.stop()
+
+func on_button_press():
+	$MenuClickSound.play()
+	
+func on_boom():
+	$BoomSound.play()
+	
+func on_main_menu(menu):
+	$MenuBackgroundSound.play()
+
+func on_bullet():
+	$BulletSound.play()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=2]
+[gd_scene load_steps=98 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Levels/Bomb.tscn" type="PackedScene" id=2]
@@ -64,6 +64,8 @@
 [ext_resource path="res://Skulls/skull_vert.png" type="Texture" id=62]
 [ext_resource path="res://Cabels/HORI2.png" type="Texture" id=63]
 [ext_resource path="res://Cabels/HORI3.png" type="Texture" id=64]
+[ext_resource path="res://Assets/Images/mg/1.png" type="Texture" id=65]
+[ext_resource path="res://Assets/Images/mg/2.png" type="Texture" id=66]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
@@ -192,6 +194,26 @@ points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
 8/navigation_offset = Vector2( 0, 0 )
 8/shapes = [  ]
 8/z_index = 0
+9/name = "1.png 9"
+9/texture = ExtResource( 65 )
+9/tex_offset = Vector2( 0, 0 )
+9/modulate = Color( 1, 1, 1, 1 )
+9/region = Rect2( 0, 0, 64, 64 )
+9/tile_mode = 0
+9/occluder_offset = Vector2( 0, 0 )
+9/navigation_offset = Vector2( 0, 0 )
+9/shapes = [  ]
+9/z_index = 0
+10/name = "2.png 10"
+10/texture = ExtResource( 66 )
+10/tex_offset = Vector2( 0, 0 )
+10/modulate = Color( 1, 1, 1, 1 )
+10/region = Rect2( 0, 0, 64, 64 )
+10/tile_mode = 0
+10/occluder_offset = Vector2( 0, 0 )
+10/navigation_offset = Vector2( 0, 0 )
+10/shapes = [  ]
+10/z_index = 0
 
 [sub_resource type="TileSet" id=6]
 0/name = "CROSS.png 0"
@@ -953,7 +975,7 @@ DestroyedCabel = ExtResource( 4 )
 z_index = 4
 tile_set = SubResource( 5 )
 format = 1
-tile_data = PoolIntArray( 1, 6, 0, 11, 1, 0, 17, 3, 0, 131078, 7, 0, 131080, 7, 0, 262145, 5, 0, 262157, 2, 0, 393217, 0, 0, 393223, 4, 0, 393224, 4, 0, 458763, 6, 0, 524294, 6, 0 )
+tile_data = PoolIntArray( 1, 6, 0, 11, 1, 0, 17, 3, 0, 131078, 7, 0, 131080, 7, 0, 262145, 9, 0, 262157, 2, 0, 393217, 0, 0, 393223, 4, 0, 393224, 0, 0, 458763, 6, 0, 524294, 6, 0 )
 
 [node name="TileMapCables" type="TileMap" parent="."]
 z_index = 1
@@ -995,8 +1017,13 @@ rotation = 0.00168394
 position = Vector2( 73.9688, 77.1979 )
 z_index = 3
 collision_layer = 1
+
+[node name="MGTileAnimator" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
 [connection signal="timeout" from="SpawnNextMissionTimer" to="." method="_on_SpawnNextMissionTimer_timeout"]
 [connection signal="timeout" from="SpawnBulletTimer" to="." method="_on_SpawnBulletTimer_timeout"]
 [connection signal="timeout" from="SpawnBombTimer" to="." method="_on_SpawnBombTimer_timeout"]
 [connection signal="baftata" from="Player" to="." method="_on_Player_baftata"]
 [connection signal="repair_cabel" from="Player" to="." method="_on_Player_repair_cabel"]
+[connection signal="timeout" from="MGTileAnimator" to="." method="_on_MGTileAnimator_timeout"]

@@ -2,7 +2,10 @@ extends Node
 
 signal ChangeScene
 signal MainMenu
+signal ButtonPressed
 signal NewGame
+signal EnterLevel
+signal EndLevel
 signal Continue
 signal Resume
 signal Restart
@@ -12,6 +15,8 @@ signal Languages
 signal Paused
 signal Exit
 signal Refocus
+signal Boom
+signal Bullet
 
 #For section tracking
 var MainMenu:bool = false setget set_main_menu

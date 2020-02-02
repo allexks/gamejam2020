@@ -80,16 +80,12 @@ func _process(delta):
 
 	sprite_node.play(animation)
 	
-func Hit(up):
+func Hit():
 
 	Hp -= 1
 	
-	if up:
-		$BloodUp.show()
-		$BloodUp.play("default")
-	else:
-		$BloodDown.show()
-		$BloodDown.play("default")
+	$BloodDown.show()
+	$BloodDown.play("default")
 
 
 func _on_PlayerHUD_mission_timeout(id):

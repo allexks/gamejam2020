@@ -15,6 +15,7 @@ func _on_AnimatedSprite_animation_finished():
 	if $AnimatedSprite.animation == FallAnimation:
 		$BoomCollision.disabled = false
 		$AnimatedSprite.play(BoomAnimation)
+		Event.emit_signal("Boom")
 	elif $AnimatedSprite.animation == BoomAnimation:
 		$BoomCollision.disabled = true
 		queue_free()
