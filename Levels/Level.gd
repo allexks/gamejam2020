@@ -6,6 +6,13 @@ export (PackedScene) var Bomb
 export (PackedScene) var Bullet
 export (PackedScene) var DestroyedCabel
 
+export var Barracks1 = "BR1"
+export var Barracks2 = "BR2"
+export var Barracks3 = "BR3"
+export var Medical = "MED"
+export var HQ = "HQ"
+export var Ammo = "AMM"
+
 var lives = 3
 
 var possible_wire_locations = [
@@ -25,6 +32,10 @@ var possible_wire_locations = [
 	Vector2(28, 8),
 	Vector2(10, 6),
 ]
+
+var possible_mission_startpoints
+
+var possible_mission_endpoints
 	
 # Locations of all broken wires of the level
 # in tile map coordinates
@@ -71,7 +82,43 @@ var ongiong_mission_indices = []
 
 var level_is_over = false
 
-func _ready():	
+func _ready():
+	possible_mission_startpoints = [
+		Barracks2,
+		HQ,
+		Barracks1,
+		Medical,
+		HQ,
+		Ammo,
+		Barracks3,
+		Barracks3,
+		Barracks2,
+		Barracks3,
+		Medical,
+		Barracks1,
+		Barracks1,
+		Barracks2,
+		Barracks3
+	]
+	
+	possible_mission_endpoints = [
+		Ammo,
+		Medical,
+		Barracks3,
+		HQ,
+		Medical,
+		HQ,
+		HQ,
+		Barracks2,
+		Barracks3,
+		Barracks1,
+		Barracks3,
+		HQ,
+		Barracks3,
+		Barracks3,
+		Ammo
+	]
+	
 	$SpawnBombTimer.start(randi() % 5)
 	$SpawnBulletTimer.start()
 	next_mission()
@@ -144,7 +191,14 @@ func spawn_next_mission():
 	
 	possible_wire_locations.remove(random_index)
 	
-	$Player/PlayerHUD.add_mission(mission_durations[current_mission_index], current_mission_index, "XXX", "XXX")
+	
+	$Player/PlayerHUD.add_mission(
+			mission_durations[current_mission_index], 
+			current_mission_index, 
+			possible_mission_startpoints[random_index], 
+			possible_mission_endpoints[random_index]
+	)
+	
 	ongiong_mission_indices.append(current_mission_index)
 
 func win_level():
@@ -156,7 +210,7 @@ func win_level():
 func lose_level():
 	level_is_over = true
 	print("Otidi konq u rqkata")
-	Event.emit_signal("ChangeScene", "MainMenu.tscn")
+	Event.emit_signal("ChangeScene", Next_Scene)
 
 
 func _on_Player_baftata(id):
