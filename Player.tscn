@@ -82,3 +82,4 @@ shape = SubResource( 3 )
 
 [node name="PlayerHUD" parent="." instance=ExtResource( 14 )]
 [connection signal="body_entered" from="Get_Hit" to="." method="_on_Get_Hit_body_entered"]
+[connection signal="mission_timeout" from="PlayerHUD" to="." method="_on_PlayerHUD_mission_timeout"]

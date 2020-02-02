@@ -37,3 +37,6 @@ position = Vector2( 266.017, 11.7474 )
 position = Vector2( 268.487, 166.437 )
 frames = SubResource( 2 )
 frame = 2
+[connection signal="mission_timeout" from="Mission1Sprite" to="." method="_on_Mission_Sprite_mission_timeout"]
+[connection signal="mission_timeout" from="Mission2Sprite" to="." method="_on_Mission_Sprite_mission_timeout"]
+[connection signal="mission_timeout" from="Mission3Sprite" to="." method="_on_Mission_Sprite_mission_timeout"]

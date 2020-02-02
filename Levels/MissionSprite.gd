@@ -17,13 +17,17 @@ func begin(initial_time_left, id, mission_from, mission_to):
 	started = true
 
 
+func end():
+	hide()
+	$Timer.stop()
+	stop()
+	started = false
+
+
 func _on_Timer_timeout():
 	var time_left = int($SecondsLeft.text)
 	$SecondsLeft.text = "%3d" % (time_left - 1)
 	if time_left == 0:
-		hide()
-		$Timer.stop()
-		stop()
-		started = false
+		end()
 		emit_signal("mission_timeout", mission_id)
 

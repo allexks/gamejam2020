@@ -1,12 +1,13 @@
 extends Node2D
 
 export (String, FILE, "*.tscn") var Next_Scene: String
-var index_one = 0
-var index_two = 0
-var index_three = 0
+
 export (PackedScene) var Bomb
 export (PackedScene) var Bullet
 export (PackedScene) var DestroyedCabel
+
+var lives = 3
+
 var possible_wire_locations = [
 	Vector2(16, 5),
 	Vector2(8, 14),
@@ -29,42 +30,54 @@ var possible_wire_locations = [
 # in tile map coordinates
 var broken_wire_locations
 
-# Max time in second before the next mission starts
-export var time_between_missions = [
-	10,
-	15,
+
+export var mission_durations = [
+	30,
+	30,
+	30,
+	30,
+	30,
+	30,
+	30,
+	30,
+	30,
+	30
+]
+
+export var time_before_missions = [
+	3,
+	25,
+	25,
+	25,
+	25,
+	25,
+	25,
+	25,
 	20,
-	
+	20
 ]
 
 var current_mission_index = -1
 
 var missions_accomplished = [
-	false, false, false
+	false, false, false, false, false, false, false, false, false, false
 ]
 
 var destroyed_cabel_instances = [
-	null, null, null
+	null, null, null, null, null, null, null, null, null, null
 ]
+
+var ongiong_mission_indices = []
 
 var level_is_over = false
 
-func _ready():
-	index_one = randi() % len(possible_wire_locations)
-	index_two = randi() % len(possible_wire_locations)
-	index_three = randi() % len(possible_wire_locations)
-
-	broken_wire_locations = [
-		possible_wire_locations[index_one],
-		possible_wire_locations[index_two],
-		possible_wire_locations[index_three],
-	]
-	
+func _ready():	
 	$SpawnBombTimer.start(randi() % 5)
 	$SpawnBulletTimer.start()
 	next_mission()
 	
 func _on_SpawnBombTimer_timeout():
+	return
 	var bomb = Bomb.instance()
 	add_child(bomb)
 	
@@ -74,6 +87,7 @@ func _on_SpawnBombTimer_timeout():
 
 
 func _on_SpawnBulletTimer_timeout():
+	return
 	$BulletPath/BulletPathFollower.offset = $Player.position.x + 100 - (randi() % 200)
 	
 	var bullet = Bullet.instance()
@@ -89,43 +103,38 @@ func _on_Player_repair_cabel():
 			cable.queue_free()
 			missions_accomplished[i] = true
 			destroyed_cabel_instances[i] = null
-			next_mission()
+			if i in ongiong_mission_indices:
+				ongiong_mission_indices.remove(i)
+				$Player/PlayerHUD.remove_mission(i)
 			return
 		i += 1
 
 
 func _on_SpawnNextMissionTimer_timeout():
 	$SpawnNextMissionTimer.stop()
-	next_mission(true)
+	next_mission()
 
 
-func next_mission(lose_if_no_next = false):
+func next_mission():
 	if level_is_over:
 		return
 	
-	current_mission_index += 1
+	spawn_next_mission()
 	
-	if current_mission_index >= len(time_between_missions):
-		if lose_if_no_next:
-			lose_level()
-			return
-		
-		for mission_accomplished in missions_accomplished:
-			if not mission_accomplished:
-				return
-		
-		win_level()
-		return
+	current_mission_index += 1
 
 	start_next_mission_timer()
-	spawn_next_mission()
 
 
 func start_next_mission_timer():
-	$SpawnNextMissionTimer.start(time_between_missions[current_mission_index])
+	$SpawnNextMissionTimer.start(time_before_missions[current_mission_index])
 
 func spawn_next_mission():
-	var tile_position = broken_wire_locations[current_mission_index]
+	if current_mission_index < 0:
+		return
+
+	var random_index = randi() % len(possible_wire_locations)
+	var tile_position = possible_wire_locations[random_index]
 	
 	var world_position = $TileMapInside.map_to_world(tile_position)
 	
@@ -134,7 +143,11 @@ func spawn_next_mission():
 	add_child(new_cabel)
 	
 	new_cabel.position = world_position
-
+	
+	possible_wire_locations.remove(random_index)
+	
+	$Player/PlayerHUD.add_mission(mission_durations[current_mission_index], current_mission_index, "XXX", "XXX")
+	ongiong_mission_indices.append(current_mission_index)
 
 func win_level():
 	level_is_over = true
@@ -145,4 +158,14 @@ func win_level():
 func lose_level():
 	level_is_over = true
 	print("Otidi konq u rqkata")
-	# TODO
+	Event.emit_signal("ChangeScene", "MainMenu.tscn")
+
+
+func _on_Player_baftata(id):
+	print(id)
+	lives -= 1
+	$Player/PlayerHUD.lives -= 1
+	ongiong_mission_indices.remove(id)
+	if lives == 0:
+		lose_level()
+	

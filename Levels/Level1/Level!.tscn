@@ -640,4 +640,5 @@ collision_layer = 1
 [connection signal="timeout" from="SpawnNextMissionTimer" to="." method="_on_SpawnNextMissionTimer_timeout"]
 [connection signal="timeout" from="SpawnBulletTimer" to="." method="_on_SpawnBulletTimer_timeout"]
 [connection signal="timeout" from="SpawnBombTimer" to="." method="_on_SpawnBombTimer_timeout"]
+[connection signal="baftata" from="Player" to="." method="_on_Player_baftata"]
 [connection signal="repair_cabel" from="Player" to="." method="_on_Player_repair_cabel"]
