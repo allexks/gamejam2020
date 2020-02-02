@@ -13,7 +13,6 @@ export var Medical = "MED"
 export var HQ = "HQ"
 export var Ammo = "AMM"
 
-
 var lives = 3
 
 var possible_wire_locations = [
@@ -46,37 +45,37 @@ var broken_wire_locations
 export var mission_durations = [
 	30,
 	30,
-	#30,
-	#30,
-	#30,
-	#30,
-	#30,
-	#30,
-	#30,
-	#30
+	30,
+	30,
+	30,
+	30,
+	30,
+	30,
+	30,
+	30
 ]
 
 export var time_before_missions = [
 	3,
 	25,
-	#25,
-	#25,
-	#25,
-	#25,
-	#25,
-	#25,
-	#20,
-	#20
+	25,
+	25,
+	25,
+	25,
+	25,
+	25,
+	20,
+	20
 ]
 
 var current_mission_index = -1
 
 var missions_accomplished = [
-	false, false#, false, false, false, false, false, false, false, false
+	false, false, false, false, false, false, false, false, false, false
 ]
 
 var destroyed_cabel_instances = [
-	null, null#, null, null, null, null, null, null, null, null
+	null, null, null, null, null, null, null, null, null, null
 ]
 
 var ongiong_mission_indices = []
