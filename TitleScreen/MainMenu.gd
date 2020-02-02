@@ -30,6 +30,7 @@ func _on_Exit_pressed()->void:
 
 #Localization
 func retranslate()->void:
-	find_node("NewGame").text = tr("NEW_GAME")
-	find_node("Options").text = tr("OPTIONS")
-	find_node("Exit").text = tr("EXIT")
+	pass
+	#find_node("Play").text = tr("NEW_GAME")
+	#find_node("Options").text = tr("OPTIONS")
+	#find_node("Exit").text = tr("EXIT")

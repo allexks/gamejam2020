@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 signal repair_cabel
 signal baftata
-
+signal hitBaftata
 export var DefaultSpeed = 120
 export var Hp = 3
 export var AnimationUp = "up"
@@ -80,16 +80,16 @@ func _process(delta):
 
 	sprite_node.play(animation)
 	
-func Hit(up):
+func Hit():
 
-	Hp -= 1
+	emit_signal("hitBaftata")
 	
-	if up:
-		$BloodUp.show()
-		$BloodUp.play("default")
-	else:
-		$BloodDown.show()
-		$BloodDown.play("default")
+	
+	move_and_slide(Vector2(0,1) * 200)
+	
+	$BloodDown.show()
+	$BloodDown.play("default")
+		
 
 
 func _on_PlayerHUD_mission_timeout(id):

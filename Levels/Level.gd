@@ -1,7 +1,7 @@
 extends Node2D
 
 export (String, FILE, "*.tscn") var Next_Scene: String
-
+export (String, FILE, "*.tscn") var Win_Scene: String
 export (PackedScene) var Bomb
 export (PackedScene) var Bullet
 export (PackedScene) var DestroyedCabel
@@ -12,6 +12,7 @@ export var Barracks3 = "BR3"
 export var Medical = "MED"
 export var HQ = "HQ"
 export var Ammo = "AMM"
+
 
 var lives = 3
 
@@ -138,8 +139,8 @@ func _on_SpawnBulletTimer_timeout():
 	var bullet = Bullet.instance()
 	add_child(bullet)
 	
-	bullet.position = $BulletPath/BulletPathFollower.position
-
+	bullet.position.x = $BulletPath/BulletPathFollower.position.x
+	bullet.position.y = $BulletPath/BulletPathFollower.position.y + 600
 
 func _on_Player_repair_cabel():
 	var i = 0
@@ -203,13 +204,12 @@ func spawn_next_mission():
 
 func win_level():
 	level_is_over = true
-	print("koito igrai picheli")
-	# TODO
+	Event.emit_signal("ChangeScene", Win_Scene)
+
 
 
 func lose_level():
 	level_is_over = true
-	print("Otidi konq u rqkata")
 	Event.emit_signal("ChangeScene", Next_Scene)
 
 
@@ -221,3 +221,12 @@ func _on_Player_baftata(id):
 	if lives == 0:
 		lose_level()
 	
+
+
+func _on_Player_hitBaftata():
+	
+	lives -= 1
+	$Player/PlayerHUD.lives -= 1
+	
+	if lives == 0:
+		lose_level()
