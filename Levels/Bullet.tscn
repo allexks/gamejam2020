@@ -33,7 +33,10 @@ shape = SubResource( 1 )
 disabled = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+rotation = 3.14159
+z_index = 5
 frames = SubResource( 2 )
+frame = 1
 playing = true
 flip_v = true
 

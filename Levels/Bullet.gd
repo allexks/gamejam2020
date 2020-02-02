@@ -3,7 +3,7 @@ extends KinematicBody2D
 export var Speed = 1000.0
 export (PackedScene) var player_var
 var is_coll = false
-var direction = Vector2(0, 1) # down
+var direction = Vector2(0, -1) # down
 signal hit_pl
 
 

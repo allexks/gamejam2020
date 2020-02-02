@@ -1,22 +1,48 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Levels/LevelMap.gd" type="Script" id=1]
-[ext_resource path="res://Levels/Level1/sample-level-image.png" type="Texture" id=2]
+[ext_resource path="res://StartMenu/3.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Fonts/PRESSSTART2P.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "Expand",
+"speed": 2.0
+} ]
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 3 )
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource( 1 )
 NextScene = "res://Levels/Level1/Level!.tscn"
 
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 160.458, 91.1332 )
+scale = Vector2( 0.995454, 0.994669 )
+frames = SubResource( 1 )
+animation = "Expand"
+
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = 20.5337
+margin_top = 3.78252
+margin_right = 60.5337
+margin_bottom = 43.7825
 rect_scale = Vector2( 7.98703, 4.4909 )
-color = Color( 0.376471, 0.231373, 0.227451, 1 )
+color = Color( 0.376471, 0.231373, 0.227451, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="BeginLevelButton" type="Button" parent="."]
+visible = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -27,12 +53,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_scale = Vector2( 0.233884, 0.208145 )
-texture = ExtResource( 2 )
+[node name="StartLevel" type="Timer" parent="."]
+
+[node name="Label" type="Label" parent="."]
+margin_left = 242.622
+margin_top = 144.816
+margin_right = 322.622
+margin_bottom = 179.816
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.231373, 0.129412, 0.215686, 1 )
+text = "00"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="button_up" from="BeginLevelButton" to="." method="_on_BeginLevelButton_button_up"]
+[connection signal="timeout" from="StartLevel" to="." method="_on_StartLevel_timeout"]

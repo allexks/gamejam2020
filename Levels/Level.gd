@@ -1,7 +1,7 @@
 extends Node2D
 
 export (String, FILE, "*.tscn") var Next_Scene: String
-
+export (String, FILE, "*.tscn") var Win_Scene: String
 export (PackedScene) var Bomb
 export (PackedScene) var Bullet
 export (PackedScene) var DestroyedCabel
@@ -12,6 +12,7 @@ export var Barracks3 = "BR3"
 export var Medical = "MED"
 export var HQ = "HQ"
 export var Ammo = "AMM"
+
 
 var lives = 3
 
@@ -36,7 +37,7 @@ var possible_wire_locations = [
 var possible_mission_startpoints
 
 var possible_mission_endpoints
-	
+
 # Locations of all broken wires of the level
 # in tile map coordinates
 var broken_wire_locations
@@ -100,7 +101,7 @@ func _ready():
 		Barracks2,
 		Barracks3
 	]
-	
+
 	possible_mission_endpoints = [
 		Ammo,
 		Medical,
@@ -118,16 +119,16 @@ func _ready():
 		Barracks3,
 		Ammo
 	]
-	
+
 	Event.emit_signal("EnterLevel")
 	$SpawnBombTimer.start(randi() % 5)
 	$SpawnBulletTimer.start()
 	next_mission()
-	
+
 func _on_SpawnBombTimer_timeout():
 	var bomb = Bomb.instance()
 	add_child(bomb)
-	
+
 	bomb.position.x = $Player.position.x + 30 - (randi() % 60)
 	bomb.position.y = $Player.position.y + 30 - (randi() % 60)
 	$SpawnBombTimer.start(randi() % 5)
@@ -135,12 +136,12 @@ func _on_SpawnBombTimer_timeout():
 
 func _on_SpawnBulletTimer_timeout():
 	$BulletPath/BulletPathFollower.offset = $Player.position.x + 100 - (randi() % 200)
-	
+
 	var bullet = Bullet.instance()
 	add_child(bullet)
-	
-	bullet.position = $BulletPath/BulletPathFollower.position
 
+	bullet.position.x = $BulletPath/BulletPathFollower.position.x
+	bullet.position.y = $BulletPath/BulletPathFollower.position.y + 600
 
 func _on_Player_repair_cabel():
 	var i = 0
@@ -164,9 +165,9 @@ func _on_SpawnNextMissionTimer_timeout():
 func next_mission():
 	if level_is_over:
 		return
-	
+
 	spawn_next_mission()
-	
+
 	current_mission_index += 1
 
 	start_next_mission_timer()
@@ -181,32 +182,32 @@ func spawn_next_mission():
 
 	var random_index = randi() % len(possible_wire_locations)
 	var tile_position = possible_wire_locations[random_index]
-	
+
 	var world_position = $TileMapInside.map_to_world(tile_position)
-	
+
 	var new_cabel = DestroyedCabel.instance()
 	destroyed_cabel_instances[current_mission_index] = new_cabel
 	add_child(new_cabel)
-	
+
 	new_cabel.position = world_position
-	
+
 	possible_wire_locations.remove(random_index)
-	
-	
+
+
 	$Player/PlayerHUD.add_mission(
-			mission_durations[current_mission_index], 
-			current_mission_index, 
-			possible_mission_startpoints[random_index], 
+			mission_durations[current_mission_index],
+			current_mission_index,
+			possible_mission_startpoints[random_index],
 			possible_mission_endpoints[random_index]
 	)
-	
+
 	ongiong_mission_indices.append(current_mission_index)
 
 func win_level():
 	Event.emit_signal("EndLevel")
 	level_is_over = true
-	print("koito igrai picheli")
-	# TODO
+	Event.emit_signal("ChangeScene", Win_Scene)
+
 
 
 func lose_level():
@@ -223,7 +224,7 @@ func _on_Player_baftata(id):
 	ongiong_mission_indices.remove(id)
 	if lives == 0:
 		lose_level()
-	
+
 
 
 func _on_MGTileAnimator_timeout():
@@ -232,3 +233,11 @@ func _on_MGTileAnimator_timeout():
 	var texture = $TileMapStructures.get_cell(x, y)
 	var new_texture = 10 if texture == 9 else 9
 	$TileMapStructures.set_cell(x, y, new_texture)
+
+func _on_Player_hitBaftata():
+
+	lives -= 1
+	$Player/PlayerHUD.lives -= 1
+
+	if lives == 0:
+		lose_level()

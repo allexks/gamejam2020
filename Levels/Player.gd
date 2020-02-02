@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 signal repair_cabel
 signal baftata
-
+signal hitBaftata
 export var DefaultSpeed = 120
 export var Hp = 3
 export var AnimationUp = "up"
@@ -29,7 +29,7 @@ func _process(delta):
 		emit_signal("repair_cabel")
 	else:
 		animation = ""
-		
+
 	var dir = Vector2.ZERO
 	dir.x = Input.get_action_strength("Right") - Input.get_action_strength("Left")
 	dir.y = Input.get_action_strength("Down") - Input.get_action_strength("Up")
@@ -42,11 +42,11 @@ func _process(delta):
 
 	# Animations
 	var sprite_node = $AnimatedSprite
-	
+
 	var velocity = dir.length()
 
 	if animation == AnimationWork:
-		
+
 		pass
 	elif velocity == 0:
 		match lastDirection:
@@ -79,13 +79,17 @@ func _process(delta):
 			animation = AnimationUp
 
 	sprite_node.play(animation)
-	
+
 func Hit():
 
-	Hp -= 1
-	
+	emit_signal("hitBaftata")
+
+
+	move_and_slide(Vector2(0,1) * 200)
+
 	$BloodDown.show()
 	$BloodDown.play("default")
+
 
 
 func _on_PlayerHUD_mission_timeout(id):
